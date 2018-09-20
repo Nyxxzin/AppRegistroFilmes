@@ -1,7 +1,6 @@
 package br.com.opet.tds.appregistro;
 
 import android.app.Activity;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -10,45 +9,74 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends Activity {
 
-    private List<Artista> artistas;
+    private List<Produto> produtos;
     private EditText editNome;
-    private Spinner spinnerGenero;
-    private ListView listArtista;
-    private ArrayAdapter<Artista> adapter;
+    private EditText editCategoria;
+    private EditText editQuantidade;
+    private EditText editValor;
+    private ListView listProduto;
+    private ArrayAdapter<Produto> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        artistas = new ArrayList<>();
+        produtos = new ArrayList<>();
         editNome = findViewById(R.id.editNome);
-        spinnerGenero = findViewById(R.id.spinnerGenero);
-        listArtista = findViewById(R.id.listArtista);
-        atualizarArtistas();
+        editCategoria = findViewById(R.id.editCategoria);
+        editQuantidade = findViewById(R.id.editQuantidade);
+        editValor = findViewById(R.id.editValor);
+        listProduto = findViewById(R.id.listProduto);
+
+        atualizarProdutos();
     }
 
-    private void atualizarArtistas(){
+    private void atualizarProdutos(){
         if(adapter == null) {
-            adapter = new ArtistaAdapter(getApplicationContext(), R.layout.artista_item, artistas);
-            listArtista.setAdapter(adapter);
+            adapter = new ProdutoAdapter(getApplicationContext(), R.layout.produto_item, produtos);
+            listProduto.setAdapter(adapter);
         }else{
             adapter.notifyDataSetChanged();
         }
     }
 
-    public void salvarArtista(View v){
+    public void salvarProduto(View v){
         String nome = editNome.getText().toString();
-        String genero = spinnerGenero.getSelectedItem().toString();
-        Artista a = new Artista();
-        a.setNome(nome);
-        a.setGenero(genero);
+        String categoria = editCategoria.getText().toString();
+        Double quantidade = Double.parseDouble(editQuantidade.getText().toString());
+        Double valor = Double.parseDouble(editValor.getText().toString());
 
-        artistas.add(a);
-        atualizarArtistas();
+        Produto a = new Produto();
+        a.setNome(nome);
+        a.setCategoria(categoria);
+        a.setQuantidade(quantidade);
+        a.setValor(valor);
+
+        produtos.add(a);
+
+        /*
+        Collections.sort(produtos, new Comparator<Produto>() {
+            @Override
+            public int compare(Produto f1, Produto f2) {
+                if  (f1.getNota() < f2.getNota())
+                return 1;
+
+                if (f1.getNota() > f2.getNota())
+                    return -1;
+                return 0;
+            }
+        });
+
+        while(filmes.size() > 10){
+            filmes.remove(filmes.size() -1);
+        }*/
+        atualizarProdutos();
     }
 }

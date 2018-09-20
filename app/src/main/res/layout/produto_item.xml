@@ -9,7 +9,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <TextView
-        android:id="@+id/textGenero"
+        android:id="@+id/textCategoria"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textQuantidade"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textValor"
         android:textSize="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
